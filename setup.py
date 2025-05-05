@@ -5,7 +5,7 @@ setup(
     version="0.0",
     install_requires=[
         "ncviewer @ git+https://github.com/nramirez-f/NcViewer.git@main#egg=ncviewer",
-        "finite-differences @ git+https://github.com/nramirez-f/Finite-Differences.git@main#egg=finite-differences",
+        "fdm @ git+https://github.com/nramirez-f/Finite-Difference.git@main#egg=fdm",
     ],
     author="Nramirez",
     description="Numerical tools repository",
