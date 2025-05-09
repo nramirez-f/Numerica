@@ -6,6 +6,7 @@ setup(
     py_modules=["ncviewer"],
     package_dir={"": "../../src"},
     install_requires=[
+        "netCDF4",
         "xarray",
         "plotly"
     ],
