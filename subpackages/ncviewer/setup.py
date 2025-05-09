@@ -3,13 +3,14 @@ from setuptools import setup
 setup(
     name="ncviewer",
     version="0.0",
-    packages=["numerica.ncviewer"],
-    package_dir={"numerica.ncviewer": "../../src/numerica/ncviewer"},
+    py_modules=["ncviewer"],
+    package_dir={"": "../../src"},
     install_requires=[
         "xarray",
-        "plotly"],
+        "plotly"
+    ],
     author="Nramirez",
-    description="Module to save simulations within a NetCDF file",
+    description="Module to visualize NetCDF files using Plotly",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
     url="https://github.com/nramirez-f/Numerica",
