@@ -3,8 +3,8 @@ from setuptools import setup
 setup(
     name="ncfiles",
     version="0.0",
-    packages=["numerica.ncfiles"],
-    package_dir={"numerica.ncfiles": "../../src/numerica/ncfiles"},
+    py_modules=["ncfiles"],
+    package_dir={"": "../../src"},
     install_requires=["netCDF4"],
     author="Nramirez",
     description="Module to save simulations within a NetCDF file",

@@ -3,8 +3,8 @@ from setuptools import setup
 setup(
     name="initial_conditions",
     version="0.0",
-    packages=["numerica.initial_conditions"],
-    package_dir={"numerica.initial_conditions": "../../src/numerica/initial_conditions"},
+    py_modules=["initial_conditions"],
+    package_dir={"": "../../src"},
     install_requires=["numpy"],
     author="Nramirez",
     description="Initial Conditions for Numerical Methods",
