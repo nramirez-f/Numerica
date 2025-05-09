@@ -1,6 +1,6 @@
-from fdm.advection import *
+from advection1D import *
 from ncviewer import NcFile
-from initial_conditions.scalar import *
+from initial_conditions import *
 
 x0 = -1
 xf = 10
