@@ -4,7 +4,7 @@ from scipy.sparse import diags
 
 def method_of_characteristics(x0:float, xf:float, nx:int, T:float, nt:int, a:float, f, sns:int = 1, path_to_save="simulations"):
     """
-    Solves the advection equation using the method of characteristics and saves the results.
+    Solves the advection 1D equation using the method of characteristics and saves the results.
 
     Parameters:
     -----------
@@ -44,7 +44,7 @@ def method_of_characteristics(x0:float, xf:float, nx:int, T:float, nt:int, a:flo
     x = np.linspace(x0, xf, nx)
     dt = T / nt
 
-    full_path = f"advection-exact.nc"
+    full_path = f"advection1D-exact.nc"
     ncf = NcFile(full_path, title='Advection simulation by Method of Characteristics', author = 'Nramirez', institution = 'EDANYA Group (University of Malaga)', source = 'https://github.com/nramirez-f/Finite-Differences', references ='LeVeque, Randall J.: Numerical Methods for Conservation Laws 1992')
     ncf.addCoords({"x": x})
     ncf.addVars(['u'])
@@ -156,7 +156,7 @@ def _iteration(a, nu, dim, method_name, u, iteration_type="iterative"):
 
 def _one_step_method(method_name:str, x0:float, xf:float, nx:int, T:float, cfl:float, a:float, f, t0:float = 0, sns:int = 1,  path_to_save="simulations"):
     """
-    Solves the advection equation using the cir method and saves the results.
+    Solves the advection 1D equation using the cir method and saves the results.
 
     Parameters:
     -----------
@@ -194,7 +194,7 @@ def _one_step_method(method_name:str, x0:float, xf:float, nx:int, T:float, cfl:f
         Snapshot step to save the simulation.
     
     path_to_save : str
-        path to save the simulation. Name will be advection-<method>
+        path to save the simulation. Name will be advection1D-<method>
 
     Returns:
     --------
@@ -225,7 +225,7 @@ def _one_step_method(method_name:str, x0:float, xf:float, nx:int, T:float, cfl:f
     if (not (0 <= cfl and  cfl <= 1)):
         raise RuntimeError("Unstable method - CFL condition not satisfied")
 
-    full_path = f"advection-{method_name}.nc"
+    full_path = f"advection1D-{method_name}.nc"
     ncf = NcFile(full_path, title=f'Advection simulation by Method {method_name}', description=info, author = 'Nramirez', institution = 'EDANYA Group (University of Malaga)', source = 'https://github.com/nramirez-f/Finite-Differences', references ='LeVeque, Randall J.: Numerical Methods for Conservation Laws 1992')
     ncf.addCoords({'x': x})
     ncf.addVars(['u'])
@@ -262,7 +262,7 @@ def select_method(method_name):
     def method(x0: float, xf: float, nx: int, T: float, cfl: float, a: float, f,
                t0: float = 0, sns: int = 1, path_to_save: str = "simulations") -> str:
         """
-        Solves the advection equation using the method and saves the results.
+        Solves the advection 1D equation using the method and saves the results.
 
         Parameters:
         -----------
@@ -297,7 +297,7 @@ def select_method(method_name):
             Snapshot step to save the simulation.
 
         path_to_save : str
-            Path to save the simulation. Name will be advection-<method>.
+            Path to save the simulation. Name will be 1D-<method>.
 
         Returns:
         --------
