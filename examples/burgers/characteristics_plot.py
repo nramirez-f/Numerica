@@ -1,4 +1,4 @@
-from burgers1D import plot_method_of_characteristics as pmoc
+from burgers import plot_method_of_characteristics as pmoc
 from initial_conditions import *
 
 x0 = -6

@@ -1,4 +1,4 @@
-from advection1D import *
+from advection import *
 from ncviewer import NcFile
 from initial_conditions import *
 
