@@ -2,14 +2,16 @@ from advection import *
 from ncviewer import NcView
 from initial_conditions import *
 
-x0 = 0
-xf = 2
-nx = 2000
+x0 = -0.5
+xf = 1
+nx = 1500
 T = 1
 a = 1
-cfl = 0.8
+cfl = 0.5
 
-filepath = method_of_characteristics(x0, xf, nx, T, 125, a, heaviside(0.3, 0.7))
+filepath = method_of_characteristics(x0, xf, nx, T, 200, a, riemann())
 
 ncv = NcView(filepath)
-ncv.evolution(0, line_mode='lines')
+ncv.frame(100, 0, 1, line_mode='lines')
+
+ncv.close(remove=True)

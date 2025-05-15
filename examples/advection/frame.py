@@ -9,7 +9,9 @@ T = 1
 a = 1
 cfl = 0.5
 
-filepath = lax_wendroff(x0, xf, nx, T, cfl, a, riemann(1,0), sns=2)
+filepath = cir(x0, xf, nx, T, cfl, a, riemann(), sns=1)
 
 ncv = NcView(filepath)
-ncv.evolution(0)
+ncv.frame(400, 0, 1, line_color='blue')
+
+ncv.close(remove=True)
