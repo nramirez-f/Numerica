@@ -59,13 +59,13 @@ def f4(x):
     f[x > 2] = 0.9
     return _finalize_output(f, isscalar)
 
-def riemann(ul=1, ur=0, sp=0):
+def riemann(ul=1, ur=0, split=0):
     """
     Riemann initial value problem
     """
     def shock(x):
         x, isscalar = _prepare_input(x)
-        f = np.where(x < sp, ul, ur)
+        f = np.where(x <= split, ul, ur)
         return _finalize_output(f, isscalar)
     return shock
 
@@ -80,7 +80,7 @@ def bumping(alpha, beta):
     
     return bump
 
-def heaviside(a, b, bottom=0, height=1):
+def square(a, b, bottom=0, height=1):
     """
     """
     if (b < a):

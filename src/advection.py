@@ -1,6 +1,10 @@
 import numpy as np
 from ncfiles import NcFile
 from scipy.sparse import diags
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 def method_of_characteristics(x0:float, xf:float, nx:int, T:float, nt:int, a:float, f, sns:int = 1, path_to_save="simulations"):
     """
@@ -45,17 +49,18 @@ def method_of_characteristics(x0:float, xf:float, nx:int, T:float, nt:int, a:flo
     dt = T / nt
 
     full_path = f"advection1D-exact.nc"
-    ncf = NcFile(full_path, title='Advection simulation by Method of Characteristics', author = 'Nramirez', institution = 'EDANYA Group (University of Malaga)', source = 'https://github.com/nramirez-f/Finite-Differences', references ='LeVeque, Randall J.: Numerical Methods for Conservation Laws 1992')
+    ncf = NcFile(full_path, title='Advection simulation by Method of Characteristics', description="Exact solution of advection by method of characteristics", author = os.getenv("AUTHOR"), institution = os.getenv("INSTITUTION"), source = os.getenv("REPO_URL"), references ='LeVeque, Randall J.: Numerical Methods for Conservation Laws 1992')
     ncf.addCoords({"x": x})
     ncf.addVars(['u'])
 
     for k in range(nt + 1):
         t = dt * k
         u = f(x - a * t)
-        if (a > 0):
-            u[0] = 0
         if (k % sns == 0):
             ncf.save(t, {"u": u})
+
+    print(f"Simulation finished, {full_path} generated, details:")
+    print("Exact solution of advection by method of characteristics")
 
     return full_path
 
@@ -217,7 +222,7 @@ def _one_step_method(method_name:str, x0:float, xf:float, nx:int, T:float, cfl:f
     nu = a * dt / dx
 
     # Info
-    info = f"Model: Advection\nMethod: {method_name}\nDimension: 1D\nMesh: [{x0}, {xf}]\ndx: {dx}\nInterval Time: [{t0}, {T}]\ndt: {dt}\nCFL: {cfl}\nCourant Number: {nu}\n"
+    info = f" Model: Advection / Method: {method_name} / Dimension: 1D / Mesh: [{x0}, {xf}] / dx: {dx} / Interval Time: [{t0}, {T}] / dt: {dt} / CFL: {cfl} / Courant Number: {nu} "
 
     # Initial Condition
     u0 = f(x)
@@ -226,7 +231,7 @@ def _one_step_method(method_name:str, x0:float, xf:float, nx:int, T:float, cfl:f
         raise RuntimeError("Unstable method - CFL condition not satisfied")
 
     full_path = f"advection1D-{method_name}.nc"
-    ncf = NcFile(full_path, title=f'Advection simulation by Method {method_name}', description=info, author = 'Nramirez', institution = 'EDANYA Group (University of Malaga)', source = 'https://github.com/nramirez-f/Finite-Differences', references ='LeVeque, Randall J.: Numerical Methods for Conservation Laws 1992')
+    ncf = NcFile(full_path, title=f'Advection simulation by method {method_name}', description=info, author = os.getenv("AUTHOR"), institution = os.getenv("INSTITUTION"), source = os.getenv("REPO_URL"), references ='LeVeque, Randall J.: Numerical Methods for Conservation Laws 1992')
     ncf.addCoords({'x': x})
     ncf.addVars(['u'])
 
@@ -252,9 +257,11 @@ def _one_step_method(method_name:str, x0:float, xf:float, nx:int, T:float, cfl:f
 
         k+=1
 
-    info += f"Total iterations: {k-1}\nIterations saved: {ks-1}\n"
+    info += f"/ Total iterations: {k-1} / Iterations saved: {ks-1}\n "
 
-    print(info)
+
+    print(f"Simulation finished, {full_path} generated, details:")
+    print(info.replace("/", "\n"))
 
     return full_path
 

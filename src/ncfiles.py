@@ -84,3 +84,6 @@ class NcFile:
                 raise ValueError(f"Variable '{var_name}' not found in the NetCDF file.")
             
         ncf.close()
+
+
+
